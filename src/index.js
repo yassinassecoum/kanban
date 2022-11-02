@@ -1,30 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
+import { Provider } from "react-redux";
 import App from "./App";
+import store from "./redux/store";
 import reportWebVitals from "./reportWebVitals";
-import GlobalStyle from "./styles/GlobalStyle";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import DashboardNavigation from "./components/DashboardNavigation";
-import { GlobalContextProvider } from "./context/GlobalContext";
+import GlobalStyle from "./GlobalStyle";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(
-  <BrowserRouter>
-    <GlobalStyle />
-    <GlobalContextProvider>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <DashboardNavigation>
-              <App />
-            </DashboardNavigation>
-          }
-        />
-      </Routes>
-    </GlobalContextProvider>
-  </BrowserRouter>
+  <React.StrictMode>
+    <Provider store={store}>
+      <GlobalStyle />
+      <App />
+    </Provider>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

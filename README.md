@@ -1,3 +1,6 @@
+## Project made using React, Redux, Styled-Components & React-Responsive
+
+
 # Frontend Mentor - Kanban task management web app
 
 ![Design preview for the Kanban task management web app coding challenge](./preview.jpg)

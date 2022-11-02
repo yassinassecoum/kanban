@@ -1,15 +1,30 @@
-import Switch from "@mui/material/Switch";
-import Box from "@mui/material/Box";
-
-import { useGlobalContext } from "./context/GlobalContext";
+import Header from "./components/Header";
+import Board from "./components/Board";
+import { useDispatch, useSelector } from "react-redux";
+import boardsSlice from "./redux/boardsSlice";
+import EmptyBoard from "./components/EmptyBoard";
 
 function App() {
-  const { theme, toggleTheme } = useGlobalContext();
+  const dispatch = useDispatch();
+  const boards = useSelector((state) => state.boards);
+  const theme = useSelector((state) => state.theme);
+  const activeBoard = boards.find((board) => board.isActive);
+
+  // if no active board set to 0 default
+  if (!activeBoard && boards.length > 0)
+    dispatch(boardsSlice.actions.setBoardActive({ index: 0 }));
+
   return (
-    <Box component="main" id={theme} sx={{ flexGrow: 1, p: 2 }}>
-      <h1>Hello</h1>
-      <Switch onChange={toggleTheme} />
-    </Box>
+    <div className={`app ${theme}`}>
+      {boards.length > 0 ? (
+        <>
+          <Header />
+          <Board />
+        </>
+      ) : (
+        <EmptyBoard type="add" />
+      )}
+    </div>
   );
 }
 
